@@ -4,6 +4,7 @@ import {
 } from 'sequelize';
 
 export interface UserAttributes {
+  [x: string]: any;
   id: string;
   name: string;
   email: string;
