@@ -1,10 +1,12 @@
 import { Router } from 'express';
+import { getUsers } from '../controllers/controllers';
 
 const router : Router = Router();
 
-router.get('/', (_req, res) => {
+router.get('/', async (_req, res) => {
     try {
-        res.send('working OK!')
+        const users = await getUsers();
+        res.status(200).send(users)
     } catch(err) {
         console.log(err)
     }

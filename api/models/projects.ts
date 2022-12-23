@@ -3,9 +3,10 @@ import {
   Model
 } from 'sequelize';
 
-interface Project {
+export interface Project {
   id: number;
   title: string;
+  description: string;
   status: string;
 }
 
@@ -14,6 +15,7 @@ module.exports = (sequelize : any, DataTypes : any) => {
   implements Project {
     id!: number;
     title!: string;
+    description!: string;
     status!: string;    
 
     static associate(models : any) {
@@ -35,6 +37,10 @@ module.exports = (sequelize : any, DataTypes : any) => {
     title: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     status: {
       type: DataTypes.STRING,

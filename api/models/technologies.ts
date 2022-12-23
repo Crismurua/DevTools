@@ -3,7 +3,7 @@ import {
   Model
 } from 'sequelize';
 
-interface Technology {
+export interface Technology {
   id: number;
   name: string;
 }

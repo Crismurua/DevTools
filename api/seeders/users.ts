@@ -120,6 +120,6 @@ export const users = [
         id: uuidv4(),
         name: 'Ellouise Hammond',
         email: 'ellhammond@gmail.com',
-        company: 'The Director’s Cut',
+        company: 'The Director s Cut',
       }
 ]
