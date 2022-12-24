@@ -55,7 +55,7 @@ export const getProjects  = async () : Promise<Project[]> => {
     }
 };
 
-export const getProjectId = async (id : number) : Promise<Project> => {
+export const getProjectId = async (id : string) : Promise<Project> => {
     const project : Project = await db.Projects.findByPk(id, {include : [db.Technologies, db.Users]})
     return project;
 };
@@ -66,12 +66,23 @@ export const createProject = async (title : string, description : string, status
     return newProject;
 };
 
-export const recuitUser = async (id : number, user : UserAttributes) : Promise<Project> => {
+export const recuitUser = async (id : string, user : UserAttributes) : Promise<Project> => {
     const currentProject : Project = await db.Projects.findByPk(id, {include : [db.Technologies, db.Users]})
     await currentProject?.addUser(user)
     return currentProject
 }
 
+export const updateUsers = async (id : string, user : UserAttributes) : Promise<Project> => {
+    const currentProject : Project = await db.Projects.findByPk(id, {include : [db.Technologies, db.Users]})
+    await currentProject?.setUsers(user)
+    return currentProject
+};
+
+export const updateTechnologies = async (id : string, technology : Technology) : Promise<Project> => {
+    const currentProject : Project = await db.Projects.findByPk(id, {include : [db.Technologies, db.Users]})
+    await currentProject?.setTechnologies(technology)
+    return currentProject
+};
 
 
 // TECHNOLOGIES CONTROLLERS -----------------------------------------------------------------------------

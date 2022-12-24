@@ -1,11 +1,11 @@
 'use strict';
 import {
-  Model
+  Model, UUIDV4
 } from 'sequelize';
 
 export interface Project {
   [x: string]: any;
-  id: number;
+  id: string;
   title: string;
   description: string;
   status: string;
@@ -14,7 +14,7 @@ export interface Project {
 module.exports = (sequelize : any, DataTypes : any) => {
   class Projects extends Model <Project> 
   implements Project {
-    id!: number;
+    id!: string;
     title!: string;
     description!: string;
     status!: string;    
@@ -30,10 +30,10 @@ module.exports = (sequelize : any, DataTypes : any) => {
   }
   Projects.init({
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: UUIDV4,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
     },
     title: {
       type: DataTypes.STRING,
