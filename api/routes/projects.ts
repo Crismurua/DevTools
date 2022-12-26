@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createProject, getProjectId, getProjects, recuitUser, updateTechnologies, updateUsers } from '../controllers/controllers';
+import { createProject, getProjectId, getProjects, recruitUser, updateTechnologies, updateUsers } from '../controllers/controllers';
 import { Project } from '../models/projects';
 import db from '../models';
 import { parse } from 'path';
@@ -39,7 +39,7 @@ router.put('/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { user } = req.body
-        const recruited : Project = await recuitUser(id, user) 
+        const recruited : Project = await recruitUser(id, user) 
         res.status(201).send(recruited)
     } catch(err) {
         console.log(err)

@@ -8,7 +8,13 @@ export interface Project {
   id: string;
   title: string;
   description: string;
-  status: string;
+  status: Status;
+}
+
+export enum Status {
+  Active = 'active',
+  Recruiting = 'recruiting',
+  Closed = 'closed',
 }
 
 module.exports = (sequelize : any, DataTypes : any) => {
@@ -17,7 +23,7 @@ module.exports = (sequelize : any, DataTypes : any) => {
     id!: string;
     title!: string;
     description!: string;
-    status!: string;    
+    status!: Status;    
 
     static associate(models : any) {
       Projects.belongsToMany(models.Users, {

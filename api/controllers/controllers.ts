@@ -66,7 +66,7 @@ export const createProject = async (title : string, description : string, status
     return newProject;
 };
 
-export const recuitUser = async (id : string, user : UserAttributes) : Promise<Project> => {
+export const recruitUser = async (id : string, user : UserAttributes) : Promise<Project> => {
     const currentProject : Project = await db.Projects.findByPk(id, {include : [db.Technologies, db.Users]})
     await currentProject?.addUser(user)
     return currentProject
