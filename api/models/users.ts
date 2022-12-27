@@ -2,13 +2,19 @@
 import {
   Model, UUIDV4
 } from 'sequelize';
+import { Technology } from './technologies';
+import { Project } from './projects';
+
 
 export interface UserAttributes {
-  [x: string]: any;
+  addProjects?: any;
+  addTechnologies?: any;
   id: string;
   name: string;
   email: string;
   company: string;
+  Technologies? : Technology[];
+  Projects? : Project[];
 }
 
 module.exports = (sequelize : any, DataTypes : any) => {

@@ -2,13 +2,20 @@
 import {
   Model, UUIDV4
 } from 'sequelize';
+import { UserAttributes } from './users';
+import { Technology } from './technologies';
 
 export interface Project {
-  [x: string]: any;
+  setTechnologies?: any;
+  setUsers?: any;
+  addUser?: any;
+  addTechnologies?: any;
   id: string;
   title: string;
   description: string;
   status: Status;
+  Technologies? : Technology[];
+  Users? : UserAttributes[];
 }
 
 export enum Status {

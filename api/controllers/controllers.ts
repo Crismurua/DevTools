@@ -9,7 +9,7 @@ import { Technology } from '../models/technologies';
 // USERS CONTROLLERS --------------------------------------------------------------------------------------
 
 export const getUsers = async () : Promise<UserAttributes[]> => {
-    const allUsers : UserAttributes[] = await db.Users.findAll({include: db.Technologies});
+    const allUsers : UserAttributes[] = await db.Users.findAll({include: db.Technologies}, {include: db.Projects});
 
     if(!allUsers.length){
          const dbtest : UserAttributes[] = await db.Users.bulkCreate(users)
@@ -21,17 +21,17 @@ export const getUsers = async () : Promise<UserAttributes[]> => {
 };
 
 export const getByName = async (name : string) : Promise<UserAttributes> => {
-    const user : UserAttributes = await db.Users.findOne({where: {name:name}}, {include: db.Technologies});
+    const user : UserAttributes = await db.Users.findOne({where: {name:name}}, {include: db.Technologies}, {include: db.Projects});
     return user;
 };
 
 export const getById = async (id : string) : Promise<UserAttributes> => {
-    const user : UserAttributes = await db.Users.findByPk(id, {include: db.Technologies});
+    const user : UserAttributes = await db.Users.findByPk(id, {include: db.Technologies}, {include: db.Projects});
     return user;
 };
 
 export const addTechnologies = async (id : string, technologies : Technology[]) : Promise<UserAttributes> => {
-    const user : UserAttributes = await db.Users.findByPk(id , {include: db.Technologies});
+    const user : UserAttributes = await db.Users.findByPk(id , {include: db.Technologies}, {include: db.Projects});
     await user?.addTechnologies(technologies)
     return user;
 };
@@ -39,6 +39,12 @@ export const addTechnologies = async (id : string, technologies : Technology[]) 
 export const createUser = async (name : string, email : string, company : string, technologies : Technology[] ) : Promise<void> => {
     const newUser : UserAttributes = await db.Users.create({name, email, company})
     await newUser?.addTechnologies(technologies)
+};
+
+export const addProject = async (id : string, project : Project[]) : Promise<UserAttributes> =>{
+    const user : UserAttributes = await db.Users.findByPk(id, {include: db.Projects}, {include: db.Technologies});
+    await user?.addProjects(project);
+    return user;
 }
 
 // PROJECTS CONTROLLERS --------------------------------------------------------------------------------
