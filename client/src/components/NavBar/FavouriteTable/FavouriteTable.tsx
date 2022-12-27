@@ -17,6 +17,10 @@ const FavouriteTable : React.FC<FavouriteTableInterface> = () => {
 		dispatch(removeFavourite(person))
 	};
 
+	const handleRecruit = (person: Person) => {
+		return
+	};
+
 
 	const columns = [
 		{
@@ -26,7 +30,7 @@ const FavouriteTable : React.FC<FavouriteTableInterface> = () => {
 			headerName: '',
 			width: 70,
 			renderCell: (params: GridRenderCellParams)=> <>{
-				<Button color="inherit" variant='outlined' aria-label='favourites' onClick={()=> handleClick(params.row)}>DELETE</Button>
+				<Button color="error" variant='contained' aria-label='favourites' onClick={()=> handleClick(params.row)}>DELETE</Button>
 			}</>
 		},
 		{
@@ -37,8 +41,8 @@ const FavouriteTable : React.FC<FavouriteTableInterface> = () => {
 			renderCell: (params: GridRenderCellParams)=> <>{params.value}</>
 		},
 		{
-			field: 'category',
-			headerName: 'Category',
+			field: 'email',
+			headerName: 'Email',
 			flex: 1,
 			renderCell: (params: GridRenderCellParams)=> <>{params.value}</>
 		},
@@ -49,10 +53,14 @@ const FavouriteTable : React.FC<FavouriteTableInterface> = () => {
 			renderCell: (params: GridRenderCellParams)=> <>{params.value}</>
 		},
 		{
-			field: 'levelOfHappiness',
-			headerName: 'levelOfHappiness',
-			flex: 1,
-			renderCell: (params: GridRenderCellParams)=> <>{params.value}</>
+			field: 'action',
+			type: 'actions',
+			sorteable: false,
+			headerName: '',
+			width: 70,
+			renderCell: (params: GridRenderCellParams)=> <>{
+				<Button color="success" variant='contained' aria-label='favourites' onClick={()=> handleRecruit(params.row)}>RECRUIT</Button>
+			}</>
 		},
 	];
 

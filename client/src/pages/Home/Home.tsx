@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
-import { People } from '@/data/people';
-import { addPeople } from '@/redux/states';
 import PeopleTable from './components/PeopleTable/PeopleTable';
-import { useDispatch } from 'react-redux';
+import { getUsers } from '@/utils/fetchers';
+import { useAppDispatch, useAppSelector } from '@/hooks/useTypedSelector';
 
 export interface HomeInterface {}
 
 const Home : React.FC<HomeInterface> = () => {
-	const dispatch = useDispatch();
+	const people = useAppSelector(state => state.people)
+	const dispatch = useAppDispatch();
 	
+
 	useEffect(() => {
-	  dispatch(addPeople(People))
+		dispatch(getUsers())
 	}, [])
 	
 

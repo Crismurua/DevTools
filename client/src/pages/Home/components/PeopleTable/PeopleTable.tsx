@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
 import { Person } from '@/models';
-import { Checkbox } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { Button, Checkbox } from '@mui/material';
 import { AppStore } from '@/redux/store';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { addFavourite } from '@/redux/states';
+import { useAppDispatch, useAppSelector } from '@/hooks/useTypedSelector';
+import InfoIcon from '@mui/icons-material/Info';
 
 export interface PeopleTableInterface {}
 
 const PeopleTable : React.FC<PeopleTableInterface> = () => {
 	const [selected, setSelected] = useState<Person[]>([]);
-	const page = 5;
-	const dispatch = useDispatch();
-	const people = useSelector((state : AppStore) => state.people)
-	const favourites = useSelector((state : AppStore) => state.favourites)
+	const page = 7;
+	const dispatch = useAppDispatch();
+	const people = useAppSelector((state : AppStore) => state.people)
+	const favourites = useAppSelector((state : AppStore) => state.favourites)
 
 	const findPerson = (person :Person) => !!favourites.find(p => p.id === person.id)
 	const filterPerson = (person :Person) => favourites.filter(p => p.id !== person.id)
@@ -23,6 +23,10 @@ const PeopleTable : React.FC<PeopleTableInterface> = () => {
 		const filteredPeople = findPerson(person) ? filterPerson(person) : [...selected, person]
 		dispatch(addFavourite(filteredPeople))
 		setSelected(filteredPeople)
+
+	};
+
+	const handleClick = (person : Person) => {
 
 	};
 
@@ -45,8 +49,8 @@ const PeopleTable : React.FC<PeopleTableInterface> = () => {
 			renderCell: (params: GridRenderCellParams)=> <>{params.value}</>
 		},
 		{
-			field: 'category',
-			headerName: 'Category',
+			field: 'email',
+			headerName: 'Email',
 			flex: 1,
 			renderCell: (params: GridRenderCellParams)=> <>{params.value}</>
 		},
@@ -57,10 +61,14 @@ const PeopleTable : React.FC<PeopleTableInterface> = () => {
 			renderCell: (params: GridRenderCellParams)=> <>{params.value}</>
 		},
 		{
-			field: 'levelOfHappiness',
-			headerName: 'levelOfHappiness',
-			flex: 1,
-			renderCell: (params: GridRenderCellParams)=> <>{params.value}</>
+			field: 'action',
+			type: 'action',
+			sorteable: false,
+			headerName: '',
+			flex: 0.3,
+			renderCell: (params: GridRenderCellParams)=> <>{
+				<Button size="small" onChange={()=>handleClick(params.row)}><InfoIcon/></Button>
+			}</>
 		},
 	];
 

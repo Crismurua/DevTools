@@ -1,20 +1,24 @@
-import { useState } from 'react'
+
 import { Provider } from 'react-redux/es/exports'
 import './App.css'
 import { NavBar } from './components'
-import { Home } from './pages'
+import { Home, Settings, Projects } from './pages'
 import store from './redux/store'
 import { Layout } from './styled-components'
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <Provider store={store}>
       <NavBar />
-      <Layout>
-        <Home/>
-      </Layout>
+        <Layout>
+          <Routes>
+            <Route path='/' element={<Home/>} />
+            <Route path='/projects' element={<Projects/>} />
+            <Route path='/settings' element={<Settings/>} />
+          </Routes>
+        </Layout>
     </Provider>
   )
 }
