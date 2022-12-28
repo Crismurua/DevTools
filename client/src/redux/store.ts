@@ -1,7 +1,8 @@
-import { Person, Project } from "@/models";
+import { Person, Project, Technology } from "@/models";
 import { configureStore } from "@reduxjs/toolkit";
 import { peopleSlice, favouritesSlice, projectSlice } from "./states";
 import favprojectsSlice from "./states/favprojects";
+import technologiesSlice from "./states/technologies";
 
 
 export interface AppStore {
@@ -9,6 +10,7 @@ export interface AppStore {
     favourites: Person[];
     projects: Project[];
     favprojects: Project[];
+    technologies: Technology[];
 }
 
 
@@ -18,6 +20,7 @@ const store = configureStore<AppStore>({
         favourites: favouritesSlice.reducer,
         projects: projectSlice.reducer,
         favprojects: favprojectsSlice.reducer,
+        technologies: technologiesSlice.reducer,
     }
 });
 

@@ -3,4 +3,5 @@ export enum LocalStorageTypes {
     PROJECT = 'project',
     FAVOURITES = 'favourites',
     FAVPROJECTS = 'favprojects',
+    TECHNOLOGIES = 'technologies',
 }
