@@ -1,1 +1,2 @@
-export { default as NavBar } from './NavBar';
+export * from './FavouriteTable';
+export * from './NavBar';

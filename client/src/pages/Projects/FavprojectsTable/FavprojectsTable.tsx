@@ -1,23 +1,24 @@
-import { Person } from '@/models';
-import { removeFavourite } from '@/redux/states';
+import { Project } from '@/models';
+import { removeFavproject } from '@/redux/states';
 import { AppStore } from '@/redux/store';
 import { Button } from '@mui/material';
 import { GridRenderCellParams, DataGrid } from '@mui/x-data-grid';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 export interface FavouriteTableInterface {}
 
-const FavouriteTable : React.FC<FavouriteTableInterface> = () => {
+const FavprojectsTable : React.FC<FavouriteTableInterface> = () => {
 	
 	const page = 5;
 	const dispatch = useDispatch();
-	const favourites = useSelector((state : AppStore) => state.favourites)
+	const favourites = useSelector((state : AppStore) => state.favprojects)
 
-	const handleClick = (person: Person) => {
-		dispatch(removeFavourite(person))
+	const handleClick = (project: Project) => {
+		dispatch(removeFavproject(project))
 	};
 
-	const handleRecruit = (person: Person) => {
+	const handleRecruit = (project: Project) => {
 		return
 	};
 
@@ -34,21 +35,21 @@ const FavouriteTable : React.FC<FavouriteTableInterface> = () => {
 			}</>
 		},
 		{
-			field: 'name',
-			headerName: 'Name',
+			field: 'title',
+			headerName: 'Title',
 			flex: 1,
 			minWidth: 150,
 			renderCell: (params: GridRenderCellParams)=> <>{params.value}</>
 		},
 		{
-			field: 'email',
-			headerName: 'Email',
+			field: 'description',
+			headerName: 'Description',
 			flex: 1,
 			renderCell: (params: GridRenderCellParams)=> <>{params.value}</>
 		},
 		{
-			field: 'company',
-			headerName: 'Company',
+			field: 'status',
+			headerName: 'Status',
 			flex: 1,
 			renderCell: (params: GridRenderCellParams)=> <>{params.value}</>
 		},
@@ -81,4 +82,5 @@ const FavouriteTable : React.FC<FavouriteTableInterface> = () => {
 		);
 };
 
-export default FavouriteTable;
+export default FavprojectsTable;
+

@@ -1,0 +1,1 @@
+export { default as FavprojectsTable } from './FavprojectsTable';

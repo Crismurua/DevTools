@@ -1,4 +1,6 @@
 export enum LocalStorageTypes {
     PEOPLE = 'people',
-    FAVOURITES = 'favourites'
+    PROJECT = 'project',
+    FAVOURITES = 'favourites',
+    FAVPROJECTS = 'favprojects',
 }

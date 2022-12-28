@@ -1,7 +1,7 @@
 
 import { Provider } from 'react-redux/es/exports'
 import './App.css'
-import { NavBar } from './components'
+import  NavBar  from './components/NavBar/NavBar'
 import { Home, Settings, Projects } from './pages'
 import store from './redux/store'
 import { Layout } from './styled-components'

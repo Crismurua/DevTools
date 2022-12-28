@@ -1,7 +1,15 @@
+import { Project } from "./projects";
+import { Technology } from "./technologies";
+
 export interface Person {
-      id: string,
-      name: string,
-      email: string,
-      company: string
-}
+      addProjects?: any;
+      addTechnologies?: any;
+      id: string;
+      name: string;
+      email: string;
+      company: string;
+      Technologies? : Technology[];
+      Projects? : Project[];
+    }
+    
 

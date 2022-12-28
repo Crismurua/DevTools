@@ -16,4 +16,20 @@ export const getUsers = createAsyncThunk(
             return thunkApi.rejectWithValue(err.message)
         }
     }
+);
+
+export const getProjects = createAsyncThunk(
+    "projects/getProjects",
+    async (data, thunkApi) => {        
+        try{
+            const response  = await axios.get<Person[]>("http://localhost:3001/projects", { 
+                method: 'GET',
+                headers: {"Content-type": "application/json; charset=UTF-8"},
+         });
+            return response.data;
+
+        } catch(err : any) {
+            return thunkApi.rejectWithValue(err.message)
+        }
+    }
 )
