@@ -6,12 +6,14 @@ import { AppStore } from '@/redux/store';
 import { addFavourite } from '@/redux/states';
 import { useAppDispatch, useAppSelector } from '@/hooks/useTypedSelector';
 import InfoIcon from '@mui/icons-material/Info';
+import { useNavigate } from 'react-router-dom';
 
 export interface PeopleTableInterface {}
 
 const PeopleTable : React.FC<PeopleTableInterface> = () => {
 	const [selected, setSelected] = useState<Person[]>([]);
 	const page = 7;
+	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const people = useAppSelector((state : AppStore) => state.people)
 	const favourites = useAppSelector((state : AppStore) => state.favourites)
@@ -27,7 +29,7 @@ const PeopleTable : React.FC<PeopleTableInterface> = () => {
 	};
 
 	const handleClick = (person : Person) => {
-
+		navigate(`/${person.id}`)
 	};
 
 	const columns = [
@@ -62,12 +64,12 @@ const PeopleTable : React.FC<PeopleTableInterface> = () => {
 		},
 		{
 			field: 'action',
-			type: 'action',
+			type: 'actions',
 			sorteable: false,
 			headerName: '',
 			flex: 0.3,
 			renderCell: (params: GridRenderCellParams)=> <>{
-				<Button size="small" onChange={()=>handleClick(params.row)}><InfoIcon/></Button>
+				<Button size="small" onClick={()=>handleClick(params.row)}><InfoIcon/></Button>
 			}</>
 		},
 	];
