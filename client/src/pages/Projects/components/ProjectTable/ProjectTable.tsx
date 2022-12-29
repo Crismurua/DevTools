@@ -6,12 +6,14 @@ import { AppStore } from '@/redux/store';
 import { addFavproject } from '@/redux/states';
 import { useAppDispatch, useAppSelector } from '@/hooks/useTypedSelector';
 import InfoIcon from '@mui/icons-material/Info';
+import { useNavigate } from 'react-router-dom';
 
 export interface ProjectTableInterface {}
 
 const ProjectTable : React.FC<ProjectTableInterface> = () => {
 	const [selected, setSelected] = useState<Project[]>([]);
 	const page = 7;
+	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const projects = useAppSelector((state : AppStore) => state.projects)
 	const favourites = useAppSelector((state : AppStore) => state.favprojects)
@@ -26,8 +28,8 @@ const ProjectTable : React.FC<ProjectTableInterface> = () => {
 		
 	};
 
-	const handleClick = (person : Project) => {
-
+	const handleClick = (project : Project) => {
+		navigate(`/projects/${project.id}`)
 	};
 
 
@@ -63,12 +65,12 @@ const ProjectTable : React.FC<ProjectTableInterface> = () => {
 		},
 		{
 			field: 'action',
-			type: 'action',
+			type: 'actions',
 			sorteable: false,
 			headerName: '',
 			flex: 0.3,
 			renderCell: (params: GridRenderCellParams)=> <>{
-				<Button size="small" onChange={()=>handleClick(params.row)}><InfoIcon/></Button>
+				<Button size="small" onClick={()=>handleClick(params.row)}><InfoIcon/></Button>
 			}</>
 		},
 	];

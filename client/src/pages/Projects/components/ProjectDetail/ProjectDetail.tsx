@@ -1,4 +1,4 @@
-import { Person, Project, Technology } from '@/models';
+import { Person, Technology, Project } from '@/models';
 import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Divider, Typography } from '@mui/material';
 import WorkIcon from '@mui/icons-material/Work';
 import EmailIcon from '@mui/icons-material/Email';
@@ -8,25 +8,26 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DetailLayout } from '@/styled-components';
 
-export interface UserDetailInterface {}
+export interface ProjectDetailInterface {}
 
-type PersonId = {
+type ProjectId = {
 	id:string;
 }
 
-const UserDetail : React.FC<UserDetailInterface> = () => {
-	const [detail, setDetail] = useState<Person | Record<string,never>>({});
-	const params = useParams<PersonId>();
+const ProjectDetail : React.FC<ProjectDetailInterface> = () => {
+	const [detail, setDetail] = useState<Project | Record<string,never>>({});
+	const params = useParams<ProjectId>();
 	
 
 	React.useEffect(() => {
-		axios.get<Person>(`http://localhost:3001/users/${params.id}`)
+		axios.get<Project>(`http://localhost:3001/projects/${params.id}`)
 			.then((p) => setDetail(p.data))
-	}, [])
+	}, []);
+
 	return (
 		<>
 		<Typography variant="h3" component="h2" sx={{marginBottom: 10}}>
-  			{detail.name}
+  			{detail.title}
 		</Typography>
     <DetailLayout>
 		<List
@@ -42,7 +43,7 @@ const UserDetail : React.FC<UserDetailInterface> = () => {
             <EmailIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Email" secondary={detail.email} />
+        <ListItemText primary="Description" secondary={detail.description} />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -51,7 +52,7 @@ const UserDetail : React.FC<UserDetailInterface> = () => {
             <WorkIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Company" secondary={detail.company} />
+        <ListItemText primary="Status" secondary={detail.status} />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -60,7 +61,7 @@ const UserDetail : React.FC<UserDetailInterface> = () => {
             <SchoolIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Background" secondary="Full Stack Developer" />
+        <ListItemText primary="Background" secondary="Machine Learning" />
       </ListItem>
     </List>
 
@@ -70,12 +71,13 @@ const UserDetail : React.FC<UserDetailInterface> = () => {
 	{detail.Technologies?.map((t : Technology) => (<span>{t.name}</span>))}
 	
   <Typography variant="h5" component="h2" sx={{marginTop: 3, display: 'inline'}}>
-  			Projects
+  			Development Team
 		</Typography>
-	{detail.Projects?.map((t : Project) => (<span>{t.title}</span>))}
+	{detail.Users?.map((t : Person) => (<span>{t.name}</span>))}
   </DetailLayout>
   </>
 	);
 };
 
-export default UserDetail;
+export default ProjectDetail;
+
